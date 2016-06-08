@@ -42,6 +42,11 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
         return new NormalTextViewHolder(mLayoutInfater.inflate(R.layout.item_text, parent, false));
     }
 
+    public void refrshData(){
+        //refresh data
+        expenses = db.queryExpense("null");
+    }
+
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
         //holder.mTextView.setText(mTitle[position]);
@@ -52,6 +57,7 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
 
     @Override
     public int getItemCount() {
+        refrshData();
         return expenses == null ? 0 : expenses.size();
     }
 

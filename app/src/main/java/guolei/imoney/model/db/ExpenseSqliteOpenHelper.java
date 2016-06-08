@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ExpenseSqliteOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION= 2;
+    private static final int DB_VERSION= 3;
 
     private static final String DB_NAME = "testdb.db";
     public static final String EXPENSE_TABLE_NAME = "expense";
@@ -28,7 +28,7 @@ public class ExpenseSqliteOpenHelper extends SQLiteOpenHelper {
         String createExpenseTable = "create table if not exists " + EXPENSE_TABLE_NAME
                 + " (id integer primary key autoincrement,amount real,location text,description text,type integer,time integer)";
         sqLiteDatabase.execSQL(createExpenseTable);
-        String createExpenseTypeTable = "create table if not exists expensetype" + " (id integer primary key, description text)";
+        String createExpenseTypeTable = "create table if not exists expensetype" + " (id integer primary key autoincrement, description text)";
         sqLiteDatabase.execSQL(createExpenseTypeTable);
     }
 

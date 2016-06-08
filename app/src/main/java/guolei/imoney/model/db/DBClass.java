@@ -58,6 +58,28 @@ public class DBClass extends Application{
         return returnExpense;
     }
 
+    public ArrayList<String> getExpenseType(){
+        ArrayList<String> types = new ArrayList<String>();
+        db = sqliteOpenHelper.getReadableDatabase();
+        String sql = "select description from expensetype";
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                String type = cursor.getString(cursor.getColumnIndex("description"));
+                types.add(type);
+            }
+        }
+        db.close();
+        return types;
+    }
+
+    public void addExpenseType(String description){
+        db = sqliteOpenHelper.getWritableDatabase();
+        String sql = "insert into expensetype (description) values ('" +description+ "')";
+        db.execSQL(sql);
+        db.close();
+    }
+
     public int queryNumber(){
         int number = 0;
         db = sqliteOpenHelper.getReadableDatabase();
@@ -97,7 +119,6 @@ public class DBClass extends Application{
     }
 
     public void AddExpense(Expense expense){
-
         ContentValues contentValues = new ContentValues();
         Date date = new Date();   //默认插入时间为消费时间，
         contentValues.put("AMOUNT", expense.getAmount());

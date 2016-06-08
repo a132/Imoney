@@ -5,10 +5,23 @@
     tools:context="guolei.imoney.view.TestFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/add_test_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="add Test Data" />
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/add_test_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add Test Data" />
+        <TextView
+            android:id="@+id/test_add_a_expense"
+            android:text="add a enpense record"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </FrameLayout>
