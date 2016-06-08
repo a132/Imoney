@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="titles">
+    <item>abc</item>
+    <item>bcd</item>
+    <item>abc</item>
+    <item>abc</item>
+    <item>abc</item>
+
+
+
+</string-array>
+    
+</resources>

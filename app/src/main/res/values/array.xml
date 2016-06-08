@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type">
+        <item>LineChart</item>
+        <item>PieChart</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>Month</item>
+        <item>Year</item>
+        <item>Week</item>
+    </string-array>
+</resources>

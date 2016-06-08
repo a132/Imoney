@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="newButton" type="id"/>
+    <item name="LineChart" type="id"/>
+    <item name="PieChart" type="id"/>
+
+    
+</resources>
