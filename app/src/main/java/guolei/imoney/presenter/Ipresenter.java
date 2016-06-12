@@ -16,6 +16,7 @@ public interface Ipresenter {
     ArrayList<Float> getYearData();
     ArrayList<Float> getMonthData();
     ArrayList<Float> getWeekData();
+    ArrayList<Expense> getExpenseByType(int type);
 
 
 }

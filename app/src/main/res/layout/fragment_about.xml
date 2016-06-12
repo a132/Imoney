@@ -1,0 +1,83 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="guolei.imoney.view.AboutFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/Icon_image"
+            android:layout_centerHorizontal="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/version_text"
+            android:text="iMonry  1.0"
+            android:textSize="13pt"
+            android:textColor="@color/monsoon"
+            android:layout_below="@+id/Icon_image"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_below="@id/version_text"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Developer Team:   iMoney"
+                android:textSize="8pt"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/version_text"
+                />
+            <TextView
+                android:text="Contact Us:"
+                android:textSize="8pt"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/version_text"
+                />
+            <TextView
+                android:text="guolei0321@foxmail.com"
+
+                android:textSize="8pt"
+                android:textStyle="italic"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/version_text"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/statement_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copyright 2016 iMoney. All Right Reserved"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:text="iMoney"
+            android:layout_above="@+id/statement_text"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

@@ -5,7 +5,7 @@
     <application
         android:name=".application.MvpApplication"
         android:allowBackup="true"
-        android:icon="@drawable/imoney_48"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

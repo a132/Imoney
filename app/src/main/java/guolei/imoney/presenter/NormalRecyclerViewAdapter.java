@@ -24,16 +24,19 @@ import guolei.imoney.model.Expense;
  */
 public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecyclerViewAdapter.NormalTextViewHolder> {
 
+    private String TAG = "NormalRecyclerViewAdapter";
     private final LayoutInflater mLayoutInfater;
     private final Context mcontext;
     private ArrayList<Expense> expenses;
     private Ipresenter presenter;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public int type = -1;
+
 
     public NormalRecyclerViewAdapter(Context context) {
         mcontext = context;
         presenter = new presenterImp();
-        expenses = presenter.getExpense(null);
+        refrshData();
         //mTitle = context.getResources().getStringArray(R.array.titles);
         mLayoutInfater = LayoutInflater.from(context);
     }
@@ -45,17 +48,20 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
     }
 
     public void refrshData() {
-        //refresh data
-        expenses = presenter.getExpense(null);
+        //reload data
+        if(type == -1) {
+            expenses = presenter.getExpense(null);
+        }else{
+            Log.d(TAG,"getExpense By type");
+            expenses = presenter.getExpenseByType(type);
+        }
     }
-
-
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
         Expense item = expenses.get(position);
         String date =format.format(item.getDate());
-        String blankArea = StringHelper.getBlankString(50-item.getDescription().length());
+        String blankArea = StringHelper.getBlankString(46-item.getDescription().length());
 
         holder.mTextView.setText(item.getDescription() +blankArea+ date);
         holder.cellAmountLocation.setText("金额：" + item.getAmount() + "      地点: " +item.getLocation());

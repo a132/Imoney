@@ -40,6 +40,16 @@ public class DBClass extends Application{
         contentValues.put("")
     }
     */
+    public ArrayList<Expense> getExpenseByType(int type){
+        ArrayList<Expense> returnExpense = new ArrayList<>();
+        db = sqliteOpenHelper.getReadableDatabase();
+        String sql = "select * from expense where type = ?";
+        Cursor cursor2 = db.rawQuery(sql,new String[]{type+""});
+        returnExpense = getExpenseFromCursor(cursor2);
+        return returnExpense;
+    }
+
+
     public ArrayList<Expense> queryExpense(EnumHelper.conditionEnum condition){
         ArrayList<Expense> returnExpense = new ArrayList<Expense>();
         db = sqliteOpenHelper.getReadableDatabase();

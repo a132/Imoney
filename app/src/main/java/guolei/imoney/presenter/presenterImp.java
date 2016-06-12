@@ -51,4 +51,9 @@ public class presenterImp implements Ipresenter {
     public ArrayList<Float> getYearData() {
         return dbClass.getYearData();
     }
+
+    @Override
+    public ArrayList<Expense> getExpenseByType(int type) {
+        return dbClass.getExpenseByType(type);
+    }
 }

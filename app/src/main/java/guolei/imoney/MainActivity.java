@@ -1,5 +1,6 @@
 package guolei.imoney;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -20,10 +21,12 @@ import android.widget.EditText;
 import guolei.imoney.helper.UserManager;
 import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.presenterImp;
+import guolei.imoney.view.AboutFragment;
 import guolei.imoney.view.ChartFragment;
 import guolei.imoney.view.DataFragment;
 import guolei.imoney.view.LoginActivity;
 import guolei.imoney.view.TestFragment;
+import guolei.imoney.view.TypeViewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //set homw fragment
-        home();
+        DataFragment fragment = new DataFragment();
+        moveToFrgment(fragment);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -48,13 +52,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         return super.onTouchEvent(event);
     }
 
@@ -84,79 +86,56 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
         if(id == R.id.newtype_settings){
             newType();
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment  =  null;
 
         if (id == R.id.nav_home) {
-            moveToFrgment("home");
+            fragment = new DataFragment();
         } else if (id == R.id.nav_statistics) {
-            moveToFrgment("chart");
+            fragment = new ChartFragment();
         } else if (id == R.id.nav_classify) {
-
+            fragment = new TypeViewFragment();
         } else if (id == R.id.nav_test) {
-            moveToFrgment("test");
+            fragment = new TestFragment();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_about) {
-
+            fragment = new AboutFragment();
         }else if(id == R.id.nav_loginOut){
             loginOut();
         }
+        moveToFrgment(fragment);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void moveToFrgment(String fragmentName){
-
-        if(fragmentName.equals("home")){
-            home();
-            return;
-        }
-        else if (fragmentName.equals("chart")){
-            ChartFragment fragment = new ChartFragment();
+    public void moveToFrgment(Fragment fragment){
+        if(fragment != null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_main,fragment,"sign fragment");
+            fragmentTransaction.replace(R.id.fragment_main,fragment,"type fragment");
             fragmentTransaction.commit();
-            return;
-        }
-        else if(fragmentName.equals("test")) {
-            TestFragment fragment = new TestFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_main,fragment,"sign fragment");
-            fragmentTransaction.commit();
-            return;
         }
     }
+
     void loginOut(){
         UserManager.loginOut();
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    void home(){
-        DataFragment fragment = new DataFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main,fragment,"data fragment");
-        fragmentTransaction.commit();
-    }
-
+    // 新建消费类型
     public void newType(){
         android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText editText = new EditText(this);

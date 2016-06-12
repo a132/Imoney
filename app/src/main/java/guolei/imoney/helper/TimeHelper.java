@@ -3,13 +3,16 @@ package guolei.imoney.helper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by guolei on 2016/6/9.
  */
 public class TimeHelper {
+    public static long oneDay = 24 * 60 * 60 * 1000;  //ms
+
     public static long getFisrtDay(EnumHelper.conditionEnum condition){
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = GregorianCalendar.getInstance(Locale.FRANCE);
         switch (condition){
             case YEAR:
                 cal.set(Calendar.MONTH,0);
@@ -19,7 +22,6 @@ public class TimeHelper {
                 cal.set(Calendar.DAY_OF_MONTH,cal.getActualMinimum(Calendar.DAY_OF_MONTH));
                 break;
             case WEEK:
-                //TODO  周日的时候会出错
                 cal.set(Calendar.DAY_OF_WEEK,2);
                 break;
         }
@@ -43,7 +45,8 @@ public class TimeHelper {
     public static int getPastDaysOfWeek(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        return cal.get(Calendar.DAY_OF_WEEK);
+        int days = cal.get(Calendar.DAY_OF_WEEK);
+        return  days == Calendar.SUNDAY ? 8 : days;
     }
 
     public static int getDaysOfMonth(int month){
