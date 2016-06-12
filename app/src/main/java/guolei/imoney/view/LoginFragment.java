@@ -79,13 +79,18 @@ public class LoginFragment extends Fragment {
         String password = inputPassword.getText().toString();
 
         SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
+
         if (email.equals(sp.getString("email", "null")) && password.equals(sp.getString("password", "null")) && !email.equals("null")) {
             SharedPreferences.Editor editor = sp.edit();
             Date loginTime = new Date();
             editor.putLong("lastLoginTime", loginTime.getTime());
             editor.putBoolean("isLogin", true);
             editor.commit();
+            Log.d(TAG,"somthing");
         } else {
+            Log.d(TAG,"Login failed");
+            onLoginFailed();
+            progressDialog.dismiss();
             return;
         }
 
@@ -93,10 +98,10 @@ public class LoginFragment extends Fragment {
                 new Runnable() {
                     @Override
                     public void run() {
-                        onLoginSuccess();
                         progressDialog.dismiss();
+                        onLoginSuccess();
                     }
-                },3000);
+                },2000);
     }
 
     boolean validate(){
@@ -119,14 +124,22 @@ public class LoginFragment extends Fragment {
             inputPassword.setError(null);
         }
 
+        /*SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
+        if (email.equals(sp.getString("email", "null")) && password.equals(sp.getString("password", "null")) && !email.equals("null")){
+
+        }else{
+            valid = false;
+        }*/
         return valid;
     }
     public void onLoginSuccess(){
         Login_button.setEnabled(true);
+        Log.d(TAG,"on Login Success");
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
     public void onLoginFailed(){
-        Snackbar.make(getView(),"Login Failed",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(),"Login Failed", Snackbar.LENGTH_LONG).show();
+        Log.d(TAG,"on Login failed");
         Login_button.setEnabled(true);
     }
     public void sign(){

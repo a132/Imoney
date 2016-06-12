@@ -6,15 +6,12 @@
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal"
         >
-        <Button
-            android:id="@+id/add_button"
-            android:text="add Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <Spinner
             android:id="@+id/type_spinner"
             android:layout_width="wrap_content"
@@ -22,15 +19,25 @@
             android:entries="@array/type"
             >
         </Spinner>
-
         <Spinner
             android:id="@+id/time_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/type"
+            android:layout_marginLeft="8dp"
+            android:entries="@array/time"
             >
         </Spinner>
-
+        <Button
+            android:id="@+id/add_button"
+            android:text="生成图表"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_selecter"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/textBlue"
+            android:layout_marginLeft="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
     </LinearLayout>
 
 
@@ -38,13 +45,9 @@
         android:id="@+id/chart_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
         >
-
     </RelativeLayout>
-
-
 </FrameLayout>

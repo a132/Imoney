@@ -16,9 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import guolei.imoney.R;
-import guolei.imoney.application.MvpApplication;
-import guolei.imoney.model.db.DBClass;
+import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.NormalRecyclerViewAdapter;
+import guolei.imoney.presenter.presenterImp;
 
 
 public class DataFragment extends Fragment implements NewExpenseDialogFragment.dialogFinishLister{
@@ -27,12 +27,13 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
     @BindView(R.id.add_a_expense)
     FloatingActionButton addAExpense;
 
-    private DBClass db;
+    private Ipresenter presenter;
     public static final int MY_RESULT_CODE = 1234;
     private static final String TAG = "data Fragment";
 
     public DataFragment() {
         // Required empty public constructor
+        presenter = new presenterImp();
     }
 
     @Override
@@ -41,7 +42,6 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_data, container, false);
         ButterKnife.bind(this, view);
-        db = new DBClass(MvpApplication.getApplication());
 
         dataView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataView.setAdapter(new NormalRecyclerViewAdapter(getActivity()));
@@ -55,9 +55,7 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
         } else {
             FragmentManager fragmentManager = getFragmentManager();
             NewExpenseDialogFragment fragment = new NewExpenseDialogFragment();
-            fragment.setTargetFragment(this,MY_RESULT_CODE);
-            //fragment.setTargetFragment(this,);
-            //fragment.getDialog().getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //fragment.setTargetFragment(this,MY_RESULT_CODE);
             fragment.show(fragmentManager,"dialog Fragment");
         }
     }

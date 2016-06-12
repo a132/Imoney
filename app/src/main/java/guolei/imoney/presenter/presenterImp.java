@@ -3,6 +3,7 @@ package guolei.imoney.presenter;
 import java.util.ArrayList;
 
 import guolei.imoney.application.MvpApplication;
+import guolei.imoney.helper.EnumHelper;
 import guolei.imoney.model.Expense;
 import guolei.imoney.model.db.DBClass;
 
@@ -30,5 +31,24 @@ public class presenterImp implements Ipresenter {
     public void addNewExpense(int type, float amount, String location, String description) {
         Expense expense = Expense.getExpense(type,amount,location,description);
         dbClass.AddExpense(expense);
+    }
+    @Override
+    public ArrayList<Expense> getExpense(EnumHelper.conditionEnum conditionEnum) {
+        return dbClass.queryExpense(conditionEnum);
+    }
+
+    @Override
+    public ArrayList<Float> getMonthData() {
+        return dbClass.getMonthData();
+    }
+
+    @Override
+    public ArrayList<Float> getWeekData() {
+        return dbClass.getWeekData();
+    }
+
+    @Override
+    public ArrayList<Float> getYearData() {
+        return dbClass.getYearData();
     }
 }

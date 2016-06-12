@@ -15,7 +15,7 @@ public class DataHelper {
     public static ArrayList<ExpenseListItem> getTestData(){
         ArrayList<ExpenseListItem> data = new ArrayList<ExpenseListItem>();
         DBClass db = new DBClass(MvpApplication.getApplication());
-        ArrayList<Expense> expenses =  db.queryExpense("null");
+        ArrayList<Expense> expenses =  db.queryExpense(null);
         System.out.println("dbnumber:"+db.queryNumber());
         for(int i = 0; i < expenses.size()-1; i++){
             ExpenseListItem ListItem = new ExpenseListItem(expenses.get(i));

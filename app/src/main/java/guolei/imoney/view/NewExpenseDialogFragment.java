@@ -28,7 +28,7 @@ import guolei.imoney.presenter.presenterImp;
 /**
  * Created by guolei on 2016/6/8.
  */
-public class NewExpenseDialogFragment extends DialogFragment {
+public class NewExpenseDialogFragment extends DialogFragment{
     @BindView(R.id.add_expense_button)
     Button addExpenseButton;
     @BindView(R.id.text_description)
@@ -71,7 +71,6 @@ public class NewExpenseDialogFragment extends DialogFragment {
                 //Snackbar.make(getView(),parent.getItemAtPosition(position).toString() ,Snackbar.LENGTH_LONG).show();
                 type = position;
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 type = 1;
@@ -84,6 +83,7 @@ public class NewExpenseDialogFragment extends DialogFragment {
     public void onClick() {
         newExpense();
     }
+
 
     public void newExpense(){
         Log.d(TAG,"new Expense");
