@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -15,6 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
@@ -22,13 +27,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import guolei.imoney.R;
+import guolei.imoney.model.Expense;
 import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.presenterImp;
 
 /**
  * Created by guolei on 2016/6/8.
  */
-public class NewExpenseDialogFragment extends DialogFragment{
+public class NewExpenseDialogFragment extends DialogFragment {
     @BindView(R.id.add_expense_button)
     Button addExpenseButton;
     @BindView(R.id.text_description)
@@ -42,9 +48,12 @@ public class NewExpenseDialogFragment extends DialogFragment{
 
 
     private static final String TAG = "DialogFragment";
+    @BindView(R.id.newExpenseTitle)
+    TextView newExpenseTitle;
     private Ipresenter presenter;
     private int type;
-
+    public int caller = 1;  // 1 for datafragment, 2 for editExpense Fragment
+    public Expense expense;
 
 
     @Override
@@ -76,7 +85,19 @@ public class NewExpenseDialogFragment extends DialogFragment{
                 type = 1;
             }
         });
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        YoYo.with(Techniques.Tada)
+            .duration(700)
+            .playOn(newExpenseTitle);
+        if (caller == 2) {
+            setContent(expense);
+        }
     }
 
     @OnClick(R.id.add_expense_button)
@@ -85,11 +106,24 @@ public class NewExpenseDialogFragment extends DialogFragment{
     }
 
 
-    public void newExpense(){
-        Log.d(TAG,"new Expense");
-        if(!validate()){
+    void setContent(Expense expense) {
+        newExpenseTitle.setText("更新消费记录");
+        textDescription.setText(expense.getDescription());
+        textAmount.setText(expense.getAmount() + "");
+        textLocation.setText(expense.getLocation());
+        expenseType.setSelection(expense.getType());
+    }
+
+    public void updateExpense() {
+        Log.d(TAG, "update Expense");
+
+    }
+
+    public void newExpense() {
+        Log.d(TAG, "new Expense");
+        if (!validate()) {
             addExpenseButton.setEnabled(true);
-            Snackbar.make(getView(),"Try Again",Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), "Try Again", Snackbar.LENGTH_LONG).show();
             return;
         }
         addExpenseButton.setEnabled(false);
@@ -97,61 +131,73 @@ public class NewExpenseDialogFragment extends DialogFragment{
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("正在添加...");
-        progressDialog.show();
+
 
         String description = textDescription.getText().toString();
-        float amount =Float.parseFloat(textAmount.getText().toString());
+        float amount = Float.parseFloat(textAmount.getText().toString());
         String location = textLocation.getText().toString();
         int expenseType = type;
-        presenter.addNewExpense(type,amount,location,description);
 
-        new android.os.Handler().postDelayed(
+
+        if (caller == 2) {
+            int id = expense.getId();
+            expense = Expense.getExpense(id, expenseType, amount, location, description);
+            presenter.updateExpense(expense);
+            progressDialog.setMessage("正在更新...");
+        } else if (caller == 1) {
+            presenter.addNewExpense(type, amount, location, description);
+            progressDialog.setMessage("正在添加...");
+        }
+        progressDialog.show();
+
+        new Handler().postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
                         home();
                     }
-                },2000);
+                }, 2000);
 
     }
-    public boolean validate(){
+
+    public boolean validate() {
         boolean validate = true;
         String description = textDescription.getText().toString();
         String amount = textAmount.getText().toString();
         String location = textLocation.getText().toString();
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
             textDescription.setError("No description");
             validate = false;
-        }else {
+        } else {
             textDescription.setError(null);
         }
-        if (amount.isEmpty()){
+        if (amount.isEmpty()) {
             validate = false;
             textAmount.setError("No amount");
-        }else {
+        } else {
             textAmount.setError(null);
         }
-        if(location.isEmpty()){
+        if (location.isEmpty()) {
             validate = false;
             textLocation.setError("No location");
-        }else {
+        } else {
             textLocation.setError(null);
         }
         return validate;
     }
 
-    void home(){
+    void home() {
         //hide current fragment
         //http://stackoverflow.com/questions/10905312/receive-result-from-dialogfragment
 
         FragmentManager manager = getFragmentManager();
-        dialogFinishLister activity = (dialogFinishLister)manager.findFragmentByTag("data fragment");
+        dialogFinishLister activity = (dialogFinishLister) manager.findFragmentByTag("data fragment");
         activity.onFininshDialogFragment();
         this.dismiss();
     }
-    public interface dialogFinishLister{
+
+    public interface dialogFinishLister {
         void onFininshDialogFragment();
     }
 

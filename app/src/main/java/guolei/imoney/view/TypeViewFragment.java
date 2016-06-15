@@ -2,6 +2,7 @@ package guolei.imoney.view;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,6 +46,7 @@ public class TypeViewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_type_view, container, false);
         ButterKnife.bind(this, view);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("分类查看");
         presenter = new presenterImp();
         typeListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         NormalRecyclerViewAdapter adapter = new NormalRecyclerViewAdapter(getActivity());

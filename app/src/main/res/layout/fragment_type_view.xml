@@ -13,11 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:layout_gravity="center_horizontal"
                 android:text="消费类型"
-                android:textColorHint="#05ab9a"
+                android:elevation="3dp"
+                android:textSize="20sp"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
            <Spinner
                 android:id="@+id/type_picker"

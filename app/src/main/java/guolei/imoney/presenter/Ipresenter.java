@@ -17,6 +17,8 @@ public interface Ipresenter {
     ArrayList<Float> getMonthData();
     ArrayList<Float> getWeekData();
     ArrayList<Expense> getExpenseByType(int type);
+    void deleteExpense(int id);
+    void updateExpense(Expense expense);
 
 
 }

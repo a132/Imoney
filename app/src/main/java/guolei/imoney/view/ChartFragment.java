@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +71,7 @@ public class ChartFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_chart, container, false);
         ButterKnife.bind(this, view);
         mtf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Bold.ttf");
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("统计数据");
         setupSpinner();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,17 +165,6 @@ public class ChartFragment extends Fragment {
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         lp1.setMargins(2, 2, 2, 2);
        // LineChart lineChart = (LineChart) view.findViewById(R.id.LineChart);
-
-        /*if (lineChart != null) {
-            Log.d(TAG, "linechart is not null");
-            chart_content.removeAllViews();
-            chart_content.addView(lineChart, lp1);
-            System.gc();
-            return;
-        } else {
-            Log.d(TAG, "linechart is null");
-            lineChart = new LineChart(getActivity());
-        }*/
         LineChart lineChart = new LineChart(getActivity());
         chart_content.removeAllViews();
         lineChart.setId(R.id.LineChart);
@@ -276,7 +266,7 @@ public class ChartFragment extends Fragment {
                 Log.d(TAG,"getPieData 1");
                 int pastDays= TimeHelper.getPastDayOfMonth();
                 for(int i = 0; i < pastDays; i++){
-                    Xvals.add(i+"月" );
+                    Xvals.add(i+"" );
                 }
                 ArrayList<Float> Monthamount = presenter.getMonthData();
                 for(int j = 0; j < pastDays ;j++){

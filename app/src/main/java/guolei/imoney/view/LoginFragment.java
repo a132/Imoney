@@ -135,6 +135,7 @@ public class LoginFragment extends Fragment {
     public void onLoginSuccess(){
         Login_button.setEnabled(true);
         Log.d(TAG,"on Login Success");
+        getActivity().finish();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
     public void onLoginFailed(){

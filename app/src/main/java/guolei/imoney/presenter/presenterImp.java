@@ -29,7 +29,7 @@ public class presenterImp implements Ipresenter {
 
     @Override
     public void addNewExpense(int type, float amount, String location, String description) {
-        Expense expense = Expense.getExpense(type,amount,location,description);
+        Expense expense = Expense.getExpense(1,type,amount,location,description); // 1 is useless,
         dbClass.AddExpense(expense);
     }
     @Override
@@ -55,5 +55,14 @@ public class presenterImp implements Ipresenter {
     @Override
     public ArrayList<Expense> getExpenseByType(int type) {
         return dbClass.getExpenseByType(type);
+    }
+
+    @Override
+    public void deleteExpense(int id) {
+        dbClass.deleteItem(id);
+    }
+    @Override
+    public void updateExpense(Expense expense) {
+        dbClass.updateExpense(expense);
     }
 }

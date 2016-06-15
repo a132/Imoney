@@ -27,6 +27,7 @@ public class DBClass extends Application{
     private static final long oneMinute = 60 * 1000;  //ms
     private static final long oneDay = 24 * 60 * oneMinute;
     private static final String TAG = "DBClass";
+    private static final String ExpenseTableName = "expense";
 
 
     public DBClass(Context context){
@@ -49,6 +50,23 @@ public class DBClass extends Application{
         return returnExpense;
     }
 
+    public void deleteItem(int id){
+        db = sqliteOpenHelper.getWritableDatabase();
+        int result = db.delete("expense","id"+"="+id,null);
+        db.close();
+        Log.d(TAG,"deletItem"+result);
+    }
+
+    public void updateExpense( Expense expense){
+        db = sqliteOpenHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("AMOUNT", expense.getAmount());
+        cv.put("LOCATION", expense.getLocation());
+        cv.put("TYPE", expense.getType());
+        cv.put("DESCRIPTION",expense.getDescription());
+        db.update(ExpenseTableName,cv,"id="+expense.getId(),null);
+    }
+
 
     public ArrayList<Expense> queryExpense(EnumHelper.conditionEnum condition){
         ArrayList<Expense> returnExpense = new ArrayList<Expense>();
@@ -67,13 +85,14 @@ public class DBClass extends Application{
                     time = TimeHelper.getFisrtDay(EnumHelper.conditionEnum.YEAR);
                     break;
             }
-            String conditionSql = "select * from expense where time > ?";
+            String conditionSql = "select * from expense where time > ? order by id desc";
+            Log.d(TAG,"order by id");
             Cursor cursor2 = db.rawQuery(conditionSql,new String[]{time+""});
             returnExpense = getExpenseFromCursor(cursor2);
             return returnExpense;
         }
 
-        String sql = "select * from expense";
+        String sql = "select * from expense order by id desc";
         Cursor cursor2 = db.rawQuery(sql,null);
         returnExpense = getExpenseFromCursor(cursor2);
         db.close();
@@ -93,7 +112,7 @@ public class DBClass extends Application{
                 Date date =new  Date(time);
                 //这里由于expense是单例模型，所以返回的链表可能都是相同的。
                 //已经修改，取消了单例模型,
-                Expense expense = Expense.getExpense(type,amount,location,description);
+                Expense expense = Expense.getExpense(id,type,amount,location,description);
                 expense.setDate(date);
                 returnExpense.add(expense);
             }

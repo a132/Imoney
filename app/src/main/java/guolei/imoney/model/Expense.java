@@ -14,6 +14,7 @@ public class Expense {
     private String description;
     private Date date;
     private int month;
+    private int id;
 
     private static class ExpenseHolder{
         private static final Expense Instace = new Expense();
@@ -21,7 +22,7 @@ public class Expense {
 
     private Expense(){
     }
-
+    public int getId(){return this.id;}
     public float getAmount(){
         return this.amount;
     }
@@ -39,9 +40,14 @@ public class Expense {
         cal.setTime(date);
         this.month = cal.get(Calendar.MONTH);
     }
+    public void setId(int id){
+        this.id = id;
+    }
 
-    public static final Expense getExpense(int type,float amount,String location, String description){
+
+    public static final Expense getExpense(int id,int type,float amount,String location, String description){
         Expense newone = new Expense();
+        newone.id = id;
         newone.type = type;
         newone.amount = amount;
         newone.location = location;

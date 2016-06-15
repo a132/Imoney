@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class LoginActivity extends AppCompatActivity {
 //http://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MyTheme);
+        Log.d("Login Activity","on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     //进入应用主界面
     void enterMainInterface(){
+        this.finish();
         startActivity(new Intent(this,MainActivity.class));
     }
 

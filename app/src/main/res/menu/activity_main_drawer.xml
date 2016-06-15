@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/home_24"
             android:title="主页" />
         <item
             android:id="@+id/nav_statistics"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/chart_24"
             android:title="统计数据" />
         <item
             android:id="@+id/nav_classify"

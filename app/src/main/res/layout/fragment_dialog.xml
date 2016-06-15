@@ -3,15 +3,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="新消费"
-        android:textColor="@color/white"
-        android:padding="5dp"
-        android:gravity="center_horizontal"
-        android:textSize="15pt"
-        android:background="@color/colorPrimary"
+    <RelativeLayout
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:background="@color/royalBlueDark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/newExpenseTitle"
+            android:text="新消费"
+            android:textColor="@color/white"
+
+            android:gravity="center_horizontal"
+            android:textSize="15pt"
+            android:background="@color/royalBlueDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="40dp"
@@ -25,7 +35,7 @@
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="description"/>
+            android:hint="描述"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_margin="20dp"
@@ -36,7 +46,7 @@
             android:id="@+id/text_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="amount"/>
+            android:hint="金额"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_margin="20dp"
@@ -47,7 +57,7 @@
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="location"/>
+            android:hint="地点"/>
     </android.support.design.widget.TextInputLayout>
     <Spinner
         android:id="@+id/expense_type"
@@ -58,9 +68,9 @@
     </Spinner>
     <Button
         android:id="@+id/add_expense_button"
-        android:text="OK"
+        android:text="确认"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

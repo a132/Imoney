@@ -52,6 +52,7 @@ public class SignFragment extends Fragment {
                 signUp();
                 break;
             case R.id.link_login:
+                backToLogin();
                 break;
         }
     }
@@ -85,9 +86,6 @@ public class SignFragment extends Fragment {
     }
     public void onSignupSuccess(){
         btnSignup.setEnabled(true);
-        //setResult(RESULT_OK,null);
-       // finish();
-
         backToLogin();
     }
     public void onSignupFailed(){

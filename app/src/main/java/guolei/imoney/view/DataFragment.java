@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,9 +43,11 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_data, container, false);
         ButterKnife.bind(this, view);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("消费列表");
         dataView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataView.setAdapter(new NormalRecyclerViewAdapter(getActivity()));
+
+
         return view;
     }
 
@@ -64,7 +67,8 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
     public void onFininshDialogFragment() {
         //http://stackoverflow.com/questions/10905312/receive-result-from-dialogfragment
         Log.d(TAG,"finish dialogfragment");
-        RecyclerView.Adapter adapter = dataView.getAdapter();
+        NormalRecyclerViewAdapter adapter =(NormalRecyclerViewAdapter) dataView.getAdapter();
+        adapter.refreshData();
         adapter.notifyItemRangeChanged(0, adapter.getItemCount());
     }
 }
