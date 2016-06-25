@@ -3,7 +3,10 @@ package guolei.imoney.view;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+
+import java.util.Date;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -69,16 +74,18 @@ public class LoginFragment extends Fragment {
         //Log.d(TAG, "Login");
 
         if (!validate(email,password)) {
-            ///onLoginFailed();
+            onLoginFailed();
             return false;
         }
-        ///Login_button.setEnabled(false);
-       /* final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("正在登陆...");
-        progressDialog.show();*/
-        /*SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
+        Login_button.setEnabled(false);
+
+        SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
+
+        if(!email.equals(sp.getString("email", "null"))){
+            onLoginFailed();
+            inputEmail.setError("账户不存在");
+            return false;
+        }
 
         if (email.equals(sp.getString("email", "null")) && password.equals(sp.getString("password", "null")) && !email.equals("null")) {
             SharedPreferences.Editor editor = sp.edit();
@@ -89,38 +96,56 @@ public class LoginFragment extends Fragment {
             Log.d(TAG,"somthing");
         } else {
             Log.d(TAG,"Login failed");
-            ///onLoginFailed();
-            ///progressDialog.dismiss();
+           onLoginFailed();
             return false;
         }
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("正在登陆...");
+        progressDialog.show();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        ///progressDialog.dismiss();
-                        ///onLoginSuccess();
+                        progressDialog.dismiss();
+                        onLoginSuccess();
                     }
-                },2000);*/
+                },2000);
         return true;
     }
 
     boolean validate(String email,String password){
         boolean valid = true;
+        boolean hasNumber = false;
+        boolean hasChar = false;
 
         if (email.isEmpty() || !isValidEmailAddress(email)) {
-            //inputEmail.setError("邮箱名不合法");
+            inputEmail.setError("邮箱名不合法");
             valid = false;
         } else {
             //inputEmail.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 6 || password.length() > 15) {
-            //inputPassword.setError("6-18个字母")
+            inputPassword.setError("6-15个字母");
             valid = false;
-        } else {
-            //inputPassword.setError(null);
         }
+        for (int i = 0; i< password.length();i++){
+            if(Character.isDigit(password.charAt(i))){
+                hasNumber = true;
+            }
+            if(Character.isLetter(password.charAt(i))){
+                hasChar = true;
+            }
+        }
+        if(!hasChar || !hasNumber){
+            inputPassword.setError("格式错误");
+            valid = false;
+        }
+
         return valid;
     }
 
