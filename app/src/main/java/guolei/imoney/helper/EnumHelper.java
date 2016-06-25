@@ -5,6 +5,6 @@ package guolei.imoney.helper;
  */
 public class EnumHelper {
     public static enum conditionEnum{
-        YEAR,MONTH,WEEK
+        YEAR,MONTH,WEEK,DAY
     }
 }

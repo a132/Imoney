@@ -19,6 +19,7 @@ public interface Ipresenter {
     ArrayList<Expense> getExpenseByType(int type);
     void deleteExpense(int id);
     void updateExpense(Expense expense);
+    float getTotalAmount(EnumHelper.conditionEnum condition);
 
 
 }

@@ -1,0 +1,113 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="guolei.imoney.view.BudgetFragment">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+      <RelativeLayout
+          android:id="@+id/budget_content"
+          android:layout_width="match_parent"
+          android:layout_height="120dp"/>
+
+       <LinearLayout
+           android:id="@+id/buduet_linearLayout1"
+           android:orientation="vertical"
+           android:layout_marginTop="120dp"
+           android:padding="20dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="@string/monthBudget"
+               android:textColor="@color/royalBlue"
+               android:textSize="20sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/month_spend_text"
+               android:text="@string/monthSpend"
+               android:textColor="@color/royalBlue"
+               android:textSize="20sp"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:text="@string/yearSpend"
+               android:textSize="20sp"
+               android:textColor="@color/royalBlue"
+               android:layout_marginTop="60dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:text="@string/weekSpend"
+               android:textSize="20sp"
+               android:textColor="@color/royalBlue"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:text="@string/daySpend"
+               android:textSize="20sp"
+               android:textColor="@color/royalBlue"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+       <LinearLayout
+           android:orientation="vertical"
+           android:id="@+id/buduet_linearLayout2"
+           android:layout_marginTop="120dp"
+           android:padding="20dp"
+           android:layout_toRightOf="@+id/buduet_linearLayout1"
+           android:layout_marginLeft="30dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/month_budget"
+               android:textSize="20sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/month_spend"
+               android:textSize="20sp"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/year_spend"
+               android:textSize="20sp"
+               android:layout_marginTop="60dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/week_spend"
+               android:textSize="20sp"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/day_spend"
+               android:textSize="20sp"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+
+
+       <Button
+           android:id="@+id/addBudget"
+           android:layout_marginBottom="20dp"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentBottom="true"
+           android:textColor="@color/black"
+           android:padding="4dp"
+           android:elevation="10dp"
+           android:background="@color/white"
+           android:text="@string/setMonthBudget"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+   </RelativeLayout>
+
+</FrameLayout>

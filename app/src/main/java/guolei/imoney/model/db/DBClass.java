@@ -35,18 +35,31 @@ public class DBClass extends Application{
            sqliteOpenHelper = new ExpenseSqliteOpenHelper(context);
        }
     }
-    /*
-    public void addExpense(Expense expense){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("")
+
+    public float getAverage(Date startTime,Date endTime,float amount){
+        long dayTime = endTime.getTime() - startTime.getTime();
+        if(dayTime < 0){
+            return  -1;
+        }
+        if(dayTime == 0){
+            return amount;
+        }
+        if(amount < 0){
+            return -1;
+        }
+        long days = dayTime / oneDay;
+        return amount/days;
+        //return 6f;
     }
-    */
+
+
     public ArrayList<Expense> getExpenseByType(int type){
         ArrayList<Expense> returnExpense = new ArrayList<>();
         db = sqliteOpenHelper.getReadableDatabase();
         String sql = "select * from expense where type = ?";
         Cursor cursor2 = db.rawQuery(sql,new String[]{type+""});
         returnExpense = getExpenseFromCursor(cursor2);
+        Log.d(TAG,returnExpense.size()+"");
         return returnExpense;
     }
 
@@ -68,6 +81,19 @@ public class DBClass extends Application{
     }
 
 
+    public float getFloat(EnumHelper.conditionEnum condition){
+        ArrayList<Expense> returnExpenses = queryExpense(condition);
+        return getTotalAmount(returnExpenses);
+    }
+
+    public float getTotalAmount(ArrayList<Expense> expenses ){
+        float amount = 0;
+        for (Expense item : expenses){
+            amount += item.getAmount();
+        }
+        return amount;
+    }
+
     public ArrayList<Expense> queryExpense(EnumHelper.conditionEnum condition){
         ArrayList<Expense> returnExpense = new ArrayList<Expense>();
         db = sqliteOpenHelper.getReadableDatabase();
@@ -83,6 +109,9 @@ public class DBClass extends Application{
                     break;
                 case YEAR:
                     time = TimeHelper.getFisrtDay(EnumHelper.conditionEnum.YEAR);
+                    break;
+                case DAY:
+                    time = TimeHelper.getFisrtDay(EnumHelper.conditionEnum.DAY);
                     break;
             }
             String conditionSql = "select * from expense where time > ? order by id desc";
@@ -137,8 +166,9 @@ public class DBClass extends Application{
 
     public void addExpenseType(String description){
         db = sqliteOpenHelper.getWritableDatabase();
-        String sql = "insert into expensetype (description) values ('" +description+ "')";
-        db.execSQL(sql);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("description",description);
+        db.insertOrThrow(sqliteOpenHelper.EXPENSE_TYPE_TABLE_NAME,null,contentValues);
         db.close();
     }
 
@@ -171,6 +201,7 @@ public class DBClass extends Application{
             db.endTransaction();
     }
     }
+
     public void removeAll(){
         String deleteAllSql = "delete from expense";
         db = sqliteOpenHelper.getWritableDatabase();
@@ -188,7 +219,6 @@ public class DBClass extends Application{
         db.execSQL(deletesql);
         db.close();
     }
-
 
     public void AddExpense(Expense expense){
         ContentValues contentValues = new ContentValues();
@@ -269,7 +299,6 @@ public class DBClass extends Application{
         }
     }
 
-
     public ArrayList<Float> getMonthData(){
         ArrayList<Float> MonthData = new ArrayList<Float>();
         String sql = "select sum(amount) from expense where time > ? and time < ?";
@@ -288,6 +317,4 @@ public class DBClass extends Application{
         }
         return MonthData;
     }
-
-
 }

@@ -70,7 +70,9 @@ public class TypeViewFragment extends Fragment {
                 type = position;
                 NormalRecyclerViewAdapter adapter = (NormalRecyclerViewAdapter) typeListView.getAdapter();
                 adapter.type = position;
+                adapter.getData();
                 adapter.notifyDataSetChanged();
+                //adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             }
 
             @Override

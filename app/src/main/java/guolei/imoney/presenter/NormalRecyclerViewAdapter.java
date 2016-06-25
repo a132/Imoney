@@ -133,11 +133,14 @@ public class NormalRecyclerViewAdapter extends RecyclerSwipeAdapter<NormalRecycl
                 holder.classImage.setImageResource(R.drawable.train_50);
                 break;
             case 3:
-                holder.classImage.setImageResource(R.drawable.shopping_50);
+                holder.classImage.setImageResource(R.drawable.degreesfille_50);
+                break;
+            case 4:
+                holder.classImage.setImageResource(R.drawable.donasarkarfilled_50);
                 break;
             default:
                 //user added
-                holder.classImage.setImageResource(R.drawable.dog_50);
+                holder.classImage.setImageResource(R.drawable.shopping_50);
                 break;
         }
 

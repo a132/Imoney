@@ -53,13 +53,6 @@ public class Expense {
         newone.location = location;
         newone.description = description;
         return newone;
-        /*
-        //单例模型
-        ExpenseHolder.Instace.amount= amount;
-        ExpenseHolder.Instace.location = location;
-        ExpenseHolder.Instace.type = type;
-        ExpenseHolder.Instace.description = description;
-        return ExpenseHolder.Instace;
-        */
+
     }
 }

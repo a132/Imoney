@@ -40,7 +40,7 @@ public class DBClassTest {
         try {
             POIFSFileSystem fs = new POIFSFileSystem(inputStream);
             HSSFWorkbook wb = new HSSFWorkbook(fs);
-            HSSFSheet sheet = wb.getSheetAt(0);
+            HSSFSheet sheet = wb.getSheetAt(3);
             HSSFRow row;
             HSSFCell cell;
 
@@ -49,14 +49,6 @@ public class DBClassTest {
             int cols = 0; // No of columns
             int tmp = 0;
 
-            // This trick ensures that we get the data properly even if it doesn't start from first few rows
-            /*for(int i = 0; i < 10 || i < rows; i++) {
-                row = sheet.getRow(i);
-                if(row != null) {
-                    tmp = sheet.getRow(i).getPhysicalNumberOfCells();
-                    if(tmp > cols) cols = tmp;
-                }
-            }*/
             System.out.print(rows);
             for(int r = 1; r < rows; r++) {
                 row = sheet.getRow(r);

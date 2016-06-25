@@ -152,7 +152,7 @@ public class ChartFragment extends Fragment {
     }
     void setupPieChart(PieChart pieChart, PieData pieData){
         pieChart.setData(pieData);
-        pieChart.setDescription("pie Chart bitch");
+        //pieChart.setDescription("pie Chart bitch");
         pieChart.animateY(2000);
     }
 
@@ -295,7 +295,7 @@ public class ChartFragment extends Fragment {
     void setupChart(LineChart chart, int color, LineData data) {
         //chart.setStartAtZero(true);
         chart.setDrawBorders(false);
-        chart.setDescription("hi,bitch");  //设置表格的描述
+        //chart.setDescription("hi,bitch");  //设置表格的描述
 
         chart.setNoDataTextDescription("no data bitch");
         chart.setTouchEnabled(true);

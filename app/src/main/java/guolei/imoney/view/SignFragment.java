@@ -67,7 +67,7 @@ public class SignFragment extends Fragment {
         btnSignup.setEnabled(false);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(),R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage("正在注册...");
         progressDialog.show();
 
         String name = inputName.getText().toString();

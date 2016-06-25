@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -22,21 +23,24 @@ import com.liulishuo.share.model.IShareManager;
 import com.liulishuo.share.model.ShareContentWebpage;
 import com.liulishuo.share.wechat.WechatShareManager;
 
+import java.util.ArrayList;
+
 import guolei.imoney.helper.UserManager;
 import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.presenterImp;
 import guolei.imoney.view.AboutFragment;
+import guolei.imoney.view.BudgetFragment;
 import guolei.imoney.view.ChartFragment;
 import guolei.imoney.view.DataFragment;
 import guolei.imoney.view.LoginActivity;
 import guolei.imoney.view.SettingFragment;
-import guolei.imoney.view.TestFragment;
 import guolei.imoney.view.TypeViewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Ipresenter presenter;
+    private String TAG = "mainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
 
@@ -117,8 +123,10 @@ public class MainActivity extends AppCompatActivity
             fragmentName = "type fragment";
             fragment = new TypeViewFragment();
         } else if (id == R.id.nav_test) {
-            fragmentName = "test fragment";
-            fragment = new TestFragment();
+            fragmentName = "budget fragment";
+            fragment = new BudgetFragment();
+//            fragmentName = "test fragment";
+//            fragment = new TestFragment();
         } else if (id == R.id.nav_share) {
             //TODO validate if this code can make different
             shareToWechat();
@@ -155,13 +163,20 @@ public class MainActivity extends AppCompatActivity
         android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText editText = new EditText(this);
 
-        builder.setTitle("新建消费类型").setIcon(R.drawable.star_32).
+        builder.setTitle("新建消费类型").setIcon(R.drawable.plus_32).
                 setView(editText);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = editText.getText().toString();
-                if (name.isEmpty()){
+                ArrayList<String> list = presenter.getExpenseType();
+                if(list.contains(name)){
+                    editText.setError("已经存在！");
+                    return;
+                }
+
+                System.out.print(name);
+                if (name.isEmpty() || name.equals("")){
                     editText.setError("不能为空");
                     return;
                 }
@@ -183,13 +198,10 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
     }
 
-
     void shareToWechat(){
         IShareManager iShareManager = new WechatShareManager(this);
         iShareManager.share(new ShareContentWebpage("iMoney","a good app to manage your expenses", "dataUrl",
                 "http://ww4.sinaimg.cn/mw690/db450502jw1f4thhymkd3j202o02o743.jpg"),WechatShareManager.WEIXIN_SHARE_TYPE_TALK);
-
+        Log.d(TAG,"shareToWechat");
     }
-
-
 }

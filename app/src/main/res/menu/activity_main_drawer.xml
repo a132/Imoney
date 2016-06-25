@@ -5,36 +5,36 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home_24"
-            android:title="主页" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_statistics"
             android:icon="@drawable/chart_24"
-            android:title="统计数据" />
+            android:title="@string/viewByChart" />
         <item
             android:id="@+id/nav_classify"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="分类查看" />
+            android:title="@string/viewByType" />
         <item
             android:id="@+id/nav_test"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Test Controll" />
+            android:icon="@drawable/budget_24"
+            android:title="@string/viewBudget" />
 
     </group>
 
-    <item android:title="应用">
+    <item android:title="@string/application">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="分享" />
+                android:title="@string/share" />
             <item
                 android:id="@+id/nav_loginOut"
                 android:icon="@drawable/ic_menu_send"
-                android:title="注销登陆" />
+                android:title="@string/loginOut" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="关于" />
+                android:title="@string/about" />
         </menu>
     </item>
 

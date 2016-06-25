@@ -65,4 +65,9 @@ public class presenterImp implements Ipresenter {
     public void updateExpense(Expense expense) {
         dbClass.updateExpense(expense);
     }
+
+    @Override
+    public float getTotalAmount(EnumHelper.conditionEnum condition) {
+        return dbClass.getFloat(condition);
+    }
 }

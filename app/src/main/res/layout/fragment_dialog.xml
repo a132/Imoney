@@ -12,7 +12,7 @@
         <TextView
             android:layout_centerHorizontal="true"
             android:id="@+id/newExpenseTitle"
-            android:text="新消费"
+            android:text="@string/newExpense"
             android:textColor="@color/white"
 
             android:gravity="center_horizontal"
@@ -35,7 +35,7 @@
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="描述"/>
+            android:hint="@string/description"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_margin="20dp"
@@ -46,7 +46,7 @@
             android:id="@+id/text_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="金额"/>
+            android:hint="@string/amount"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_margin="20dp"
@@ -57,7 +57,7 @@
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="地点"/>
+            android:hint="@string/location"/>
     </android.support.design.widget.TextInputLayout>
     <Spinner
         android:id="@+id/expense_type"
@@ -68,7 +68,7 @@
     </Spinner>
     <Button
         android:id="@+id/add_expense_button"
-        android:text="确认"
+        android:text="@string/OK"
         style="?android:attr/borderlessButtonStyle"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"

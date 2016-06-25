@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:layout_height="wrap_content">
     <TextView
-        android:text="输入新建的类型名称"
+        android:text="@string/inputNewExpenseType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
