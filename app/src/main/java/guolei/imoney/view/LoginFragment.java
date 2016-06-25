@@ -3,10 +3,7 @@ package guolei.imoney.view;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -17,13 +14,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Date;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import guolei.imoney.MainActivity;
 import guolei.imoney.R;
+
 
 public class LoginFragment extends Fragment {
     private static final String TAG = "LoginActivity";
@@ -54,31 +56,29 @@ public class LoginFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                login();
+                String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
+                login(email,password);
                 break;
             case R.id.link_signup:
                 sign();
                 break;
         }
     }
-    public void login(){
-        Log.d(TAG, "Login");
+    public boolean login(String email,String password){
+        //Log.d(TAG, "Login");
 
-        if (!validate()) {
-            onLoginFailed();
-            return;
+        if (!validate(email,password)) {
+            ///onLoginFailed();
+            return false;
         }
-        Login_button.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
+        ///Login_button.setEnabled(false);
+       /* final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
+        progressDialog.setMessage("正在登陆...");
+        progressDialog.show();*/
+        /*SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
 
         if (email.equals(sp.getString("email", "null")) && password.equals(sp.getString("password", "null")) && !email.equals("null")) {
             SharedPreferences.Editor editor = sp.edit();
@@ -89,49 +89,52 @@ public class LoginFragment extends Fragment {
             Log.d(TAG,"somthing");
         } else {
             Log.d(TAG,"Login failed");
-            onLoginFailed();
-            progressDialog.dismiss();
-            return;
+            ///onLoginFailed();
+            ///progressDialog.dismiss();
+            return false;
         }
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        progressDialog.dismiss();
-                        onLoginSuccess();
+                        ///progressDialog.dismiss();
+                        ///onLoginSuccess();
                     }
-                },2000);
+                },2000);*/
+        return true;
     }
 
-    boolean validate(){
+    boolean validate(String email,String password){
         boolean valid = true;
 
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            inputEmail.setError("enter a valid email address");
+        if (email.isEmpty() || !isValidEmailAddress(email)) {
+            //inputEmail.setError("邮箱名不合法");
             valid = false;
         } else {
-            inputEmail.setError(null);
+            //inputEmail.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            inputPassword.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 6 || password.length() > 15) {
+            //inputPassword.setError("6-18个字母")
             valid = false;
         } else {
-            inputPassword.setError(null);
+            //inputPassword.setError(null);
         }
-
-        /*SharedPreferences sp = getActivity().getSharedPreferences("Password", Context.MODE_PRIVATE);
-        if (email.equals(sp.getString("email", "null")) && password.equals(sp.getString("password", "null")) && !email.equals("null")){
-
-        }else{
-            valid = false;
-        }*/
         return valid;
     }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+
     public void onLoginSuccess(){
         Login_button.setEnabled(true);
         Log.d(TAG,"on Login Success");
@@ -139,8 +142,17 @@ public class LoginFragment extends Fragment {
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
     public void onLoginFailed(){
-        Snackbar.make(getView(),"Login Failed", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(),"登陆失败", Snackbar.LENGTH_LONG).show();
         Log.d(TAG,"on Login failed");
+        inputPassword.setText("");
+        YoYo.with(Techniques.Tada)
+            .duration(500)
+            .delay(100)
+            .playOn(inputPassword);
+        YoYo.with(Techniques.Tada)
+                .duration(500)
+                .delay(100)
+                .playOn(inputEmail);
         Login_button.setEnabled(true);
     }
     public void sign(){
@@ -150,4 +162,5 @@ public class LoginFragment extends Fragment {
         fragmentTransaction.replace(R.id.login_content, fragment, "sign fragment");
         fragmentTransaction.commit();
     }
+
 }
