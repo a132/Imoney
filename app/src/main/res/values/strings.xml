@@ -44,4 +44,7 @@
     <string name="changePassword">改密码</string>
     <string name="expenseType">消费类型</string>
     <string name="inputNewExpenseType">输入新建的类型名称</string>
+    <string name="new_expense_type">新建消费类型</string>
+    <string name="expense_list">消费列表</string>
+    <string name="illegal_input">输入不合法</string>
 </resources>

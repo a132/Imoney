@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import guolei.imoney.R;
 import guolei.imoney.presenter.Ipresenter;
-import guolei.imoney.presenter.NormalRecyclerViewAdapter;
 import guolei.imoney.presenter.presenterImp;
 
 /**

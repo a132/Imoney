@@ -1,4 +1,4 @@
-package guolei.imoney.presenter;
+package guolei.imoney.view;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -26,16 +26,17 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import guolei.imoney.R;
-import guolei.imoney.helper.StringHelper;
+import guolei.imoney.util.StringHelper;
 import guolei.imoney.model.Expense;
-import guolei.imoney.view.NewExpenseDialogFragment;
+import guolei.imoney.presenter.Ipresenter;
+import guolei.imoney.presenter.presenterImp;
 
 /**
  * Created by guolei on 2016/6/7.
  */
 public class NormalRecyclerViewAdapter extends RecyclerSwipeAdapter<NormalRecyclerViewAdapter.NormalTextViewHolder> {
 
-    private String TAG = "NormalRecyclerViewAdapter";
+    private String TAG = "NormalRecyViewAdapter";
     private final LayoutInflater mLayoutInfater;
     private final Context mcontext;
     private ArrayList<Expense> expenses;

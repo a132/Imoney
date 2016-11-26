@@ -45,11 +45,11 @@ public class NewExpenseDialogFragment extends DialogFragment {
     EditText textLocation;
     @BindView(R.id.expense_type)
     Spinner expenseType;
-
-
-    private static final String TAG = "DialogFragment";
     @BindView(R.id.newExpenseTitle)
     TextView newExpenseTitle;
+
+
+    private static final String TAG = "NewExpDiaFrag";
     private Ipresenter presenter;
     private int type;
     public int caller = 1;  // 1 for datafragment, 2 for editExpense Fragment
@@ -69,44 +69,40 @@ public class NewExpenseDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_dialog, container);
         ButterKnife.bind(this, view);
         presenter = new presenterImp();
-        ArrayList<String> types = presenter.getExpenseType();
+        setSpinnerAdapter();
+        return view;
+    }
 
+    private void setSpinnerAdapter() {
+        ArrayList<String> types = presenter.getExpenseType();
         ArrayAdapter<String> expenseTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, types);
         expenseTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expenseType.setAdapter(expenseTypeAdapter);
         expenseType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Snackbar.make(getView(),parent.getItemAtPosition(position).toString() ,Snackbar.LENGTH_LONG).show();
                 type = position;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 type = 1;
             }
         });
-
-        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         YoYo.with(Techniques.Tada)
-            .duration(700)
-            .playOn(newExpenseTitle);
+                .duration(700)
+                .playOn(newExpenseTitle);
         if (caller == 2) {
             setContent(expense);
         }
     }
 
-    @OnClick(R.id.add_expense_button)
-    public void onClick() {
-        newExpense();
-    }
-
-
-    void setContent(Expense expense) {
+    private void setContent(Expense expense) {
         newExpenseTitle.setText("更新消费记录");
         textDescription.setText(expense.getDescription());
         textAmount.setText(expense.getAmount() + "");
@@ -114,16 +110,16 @@ public class NewExpenseDialogFragment extends DialogFragment {
         expenseType.setSelection(expense.getType());
     }
 
-    public void updateExpense() {
-        Log.d(TAG, "update Expense");
-
+    @OnClick(R.id.add_expense_button)
+    public void onClick() {
+        newExpense();
     }
 
     public void newExpense() {
         Log.d(TAG, "new Expense");
         if (!validate()) {
             addExpenseButton.setEnabled(true);
-            Snackbar.make(getView(), "Try Again", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), R.string.illegal_input, Snackbar.LENGTH_LONG).show();
             return;
         }
         addExpenseButton.setEnabled(false);
@@ -158,7 +154,6 @@ public class NewExpenseDialogFragment extends DialogFragment {
                         home();
                     }
                 }, 2000);
-
     }
 
     public boolean validate() {
@@ -192,13 +187,12 @@ public class NewExpenseDialogFragment extends DialogFragment {
         //http://stackoverflow.com/questions/10905312/receive-result-from-dialogfragment
 
         FragmentManager manager = getFragmentManager();
-        dialogFinishLister activity = (dialogFinishLister) manager.findFragmentByTag("data fragment");
-        activity.onFininshDialogFragment();
+        dialogFinishLister finishListener = (dialogFinishLister) manager.findFragmentByTag("data fragment");
+        finishListener.onFininshDialogFragment();
         this.dismiss();
     }
 
     public interface dialogFinishLister {
         void onFininshDialogFragment();
     }
-
 }

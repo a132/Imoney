@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:Android="http://schemas.android.com/tools"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="guolei.imoney">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".application.MvpApplication"
@@ -11,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".view.LoginActivity"
+        <activity android:name=".activity.LoginActivity"
                     android:label="iMoney"
                     android:theme="@style/MyTheme.launch.Transparent">
             <intent-filter>
@@ -24,5 +26,4 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

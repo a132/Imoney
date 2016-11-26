@@ -1,4 +1,4 @@
-package guolei.imoney.helper;
+package guolei.imoney.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

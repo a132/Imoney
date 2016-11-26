@@ -1,4 +1,4 @@
-package guolei.imoney.view;
+package guolei.imoney.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,8 +11,9 @@ import android.util.Log;
 
 import java.util.Date;
 
-import guolei.imoney.MainActivity;
+import guolei.imoney.activity.MainActivity;
 import guolei.imoney.R;
+import guolei.imoney.view.LoginFragment;
 
 public class LoginActivity extends AppCompatActivity {
 //http://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/

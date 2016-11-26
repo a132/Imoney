@@ -2,7 +2,7 @@ package guolei.imoney.presenter;
 
 import java.util.ArrayList;
 
-import guolei.imoney.helper.EnumHelper;
+import guolei.imoney.util.EnumHelper;
 import guolei.imoney.model.Expense;
 
 /**
@@ -20,6 +20,4 @@ public interface Ipresenter {
     void deleteExpense(int id);
     void updateExpense(Expense expense);
     float getTotalAmount(EnumHelper.conditionEnum condition);
-
-
 }

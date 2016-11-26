@@ -36,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import guolei.imoney.R;
 import guolei.imoney.application.MvpApplication;
-import guolei.imoney.helper.TimeHelper;
+import guolei.imoney.util.TimeHelper;
 import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.presenterImp;
 

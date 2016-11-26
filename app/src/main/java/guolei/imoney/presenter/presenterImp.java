@@ -3,7 +3,7 @@ package guolei.imoney.presenter;
 import java.util.ArrayList;
 
 import guolei.imoney.application.MvpApplication;
-import guolei.imoney.helper.EnumHelper;
+import guolei.imoney.util.EnumHelper;
 import guolei.imoney.model.Expense;
 import guolei.imoney.model.db.DBClass;
 

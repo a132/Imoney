@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import guolei.imoney.R;
 import guolei.imoney.presenter.Ipresenter;
-import guolei.imoney.presenter.NormalRecyclerViewAdapter;
 import guolei.imoney.presenter.presenterImp;
 
 
@@ -29,7 +28,6 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
     FloatingActionButton addAExpense;
 
     private Ipresenter presenter;
-    public static final int MY_RESULT_CODE = 1234;
     private static final String TAG = "data Fragment";
 
     public DataFragment() {
@@ -43,11 +41,9 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_data, container, false);
         ButterKnife.bind(this, view);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("消费列表");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.expense_list);
         dataView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataView.setAdapter(new NormalRecyclerViewAdapter(getActivity()));
-
-
         return view;
     }
 
@@ -58,7 +54,6 @@ public class DataFragment extends Fragment implements NewExpenseDialogFragment.d
         } else {
             FragmentManager fragmentManager = getFragmentManager();
             NewExpenseDialogFragment fragment = new NewExpenseDialogFragment();
-            //fragment.setTargetFragment(this,MY_RESULT_CODE);
             fragment.show(fragmentManager,"dialog Fragment");
         }
     }

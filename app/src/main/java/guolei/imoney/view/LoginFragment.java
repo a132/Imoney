@@ -28,7 +28,7 @@ import javax.mail.internet.InternetAddress;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import guolei.imoney.MainActivity;
+import guolei.imoney.activity.MainActivity;
 import guolei.imoney.R;
 
 

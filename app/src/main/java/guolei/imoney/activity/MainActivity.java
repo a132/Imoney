@@ -1,4 +1,4 @@
-package guolei.imoney;
+package guolei.imoney.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,14 +25,14 @@ import com.liulishuo.share.wechat.WechatShareManager;
 
 import java.util.ArrayList;
 
-import guolei.imoney.helper.UserManager;
+import guolei.imoney.R;
+import guolei.imoney.util.UserManager;
 import guolei.imoney.presenter.Ipresenter;
 import guolei.imoney.presenter.presenterImp;
 import guolei.imoney.view.AboutFragment;
 import guolei.imoney.view.BudgetFragment;
 import guolei.imoney.view.ChartFragment;
 import guolei.imoney.view.DataFragment;
-import guolei.imoney.view.LoginActivity;
 import guolei.imoney.view.SettingFragment;
 import guolei.imoney.view.TypeViewFragment;
 
@@ -40,29 +40,30 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Ipresenter presenter;
-    private String TAG = "mainActivity";
+    private static String TAG = "mainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         presenter = new presenterImp();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //set homw fragment
+
+        //set home fragment
         DataFragment fragment = new DataFragment();
         String dataFragmentName = "data fragment";
-        moveToFrgment(fragment,dataFragmentName);
+        moveToFrgment(fragment, dataFragmentName);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
 
@@ -98,9 +99,9 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             SettingFragment fragment = new SettingFragment();
-            moveToFrgment(fragment,"settingFragment");
+            moveToFrgment(fragment, "settingFragment");
         }
-        if(id == R.id.newtype_settings){
+        if (id == R.id.newtype_settings) {
             newType();
         }
         return super.onOptionsItemSelected(item);
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment  =  null;
+        Fragment fragment = null;
         String fragmentName = null;
 
         if (id == R.id.nav_home) {
@@ -130,57 +131,54 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             //TODO validate if this code can make different
             shareToWechat();
-            return true;
         } else if (id == R.id.nav_about) {
             fragmentName = "about fragment";
             fragment = new AboutFragment();
-        }else if(id == R.id.nav_loginOut){
+        } else if (id == R.id.nav_loginOut) {
             loginOut();
         }
-        moveToFrgment(fragment,fragmentName);
+        moveToFrgment(fragment, fragmentName);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void moveToFrgment(Fragment fragment, String fragmentName){
-        if(fragment != null){
+    public void moveToFrgment(Fragment fragment, String fragmentName) {
+        if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_main,fragment,fragmentName);
+            fragmentTransaction.replace(R.id.fragment_main, fragment, fragmentName);
             fragmentTransaction.commit();
         }
     }
 
-    void loginOut(){
+    void loginOut() {
         UserManager.loginOut();
         this.finish();
         startActivity(new Intent(this, LoginActivity.class));
     }
 
     // 新建消费类型
-    public void newType(){
+    public void newType() {
         android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText editText = new EditText(this);
 
-        builder.setTitle("新建消费类型").setIcon(R.drawable.plus_32).
+        builder.setTitle(getString(R.string.new_expense_type)).setIcon(R.drawable.plus_32).
                 setView(editText);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = editText.getText().toString();
                 ArrayList<String> list = presenter.getExpenseType();
-                if(list.contains(name)){
+                if (list.contains(name)) {
                     editText.setError("已经存在！");
                     return;
                 }
 
-                System.out.print(name);
-                if (name.isEmpty() || name.equals("")){
+                if (name.isEmpty() || name.equals("")) {
                     editText.setError("不能为空");
                     return;
-                }
-                else{
+                } else {
                     editText.setError(null);
                 }
                 presenter.addExpenseType(name);
@@ -198,10 +196,10 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
     }
 
-    void shareToWechat(){
+    void shareToWechat() {
         IShareManager iShareManager = new WechatShareManager(this);
-        iShareManager.share(new ShareContentWebpage("iMoney","a good app to manage your expenses", "dataUrl",
-                "http://ww4.sinaimg.cn/mw690/db450502jw1f4thhymkd3j202o02o743.jpg"),WechatShareManager.WEIXIN_SHARE_TYPE_TALK);
-        Log.d(TAG,"shareToWechat");
+        iShareManager.share(new ShareContentWebpage("iMoney", "a good app to manage your expenses", "dataUrl",
+                "http://ww4.sinaimg.cn/mw690/db450502jw1f4thhymkd3j202o02o743.jpg"), WechatShareManager.WEIXIN_SHARE_TYPE_TALK);
+        Log.d(TAG, "shareToWechat");
     }
 }
